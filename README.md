@@ -1,44 +1,40 @@
 # HỆ THỐNG ĐIỂM DANH SINH VIÊN & CẢNH BÁO CHUYÊN CẦN TRỰC TUYẾN
 
-> **Đồ án môn học:** Công nghệ Phần mềm / Lập trình Web[cite: 1]  
-> **Công nghệ phát triển:** Laravel 12 + Tailwind CSS (Vite) + MySQL  
-> **Packages tích hợp:** `maatwebsite/excel`, `barryvdh/laravel-dompdf`, `chart.js`, `qrcode`
+> **Đồ án môn học:** Công nghệ Phần mềm / Lập trình Web[cite: 1]
+> **Công nghệ phát triển:** Laravel 12 + Tailwind CSS (Vite) + MySQL[cite: 2, 3]
+> **Packages tích hợp:** maatwebsite/excel, barryvdh/laravel-dompdf, chart.js, qrcode[cite: 2, 3]
 
 ---
 
 ## 1. YÊU CẦU MÔI TRƯỜNG HỆ THỐNG
 
 Trước khi tiến hành cài đặt, hãy đảm bảo máy tính đã cài đặt:
-- **PHP:** >= 8.2 (Bắt buộc bật các extensions: `pdo_mysql`, `gd`, `zip`, `fileinfo`)
-- **Composer:** >= 2.x
-- **Node.js:** >= 18.x & **NPM** >= 9.x
-- **Cơ sở dữ liệu:** MySQL >= 8.0 hoặc MariaDB >= 10.4 (Khuyến nghị XAMPP)
-- **Git**
+- **PHP:** >= 8.2 (Bắt buộc bật các extensions: pdo_mysql, gd, zip, fileinfo)[cite: 2, 3]
+- **Composer:** >= 2.x[cite: 2, 3]
+- **Node.js:** >= 18.x & **NPM** >= 9.x[cite: 2, 3]
+- **Cơ sở dữ liệu:** MySQL >= 8.0 hoặc MariaDB >= 10.4 (Khuyến nghị dùng XAMPP)[cite: 2, 3]
+- **Git**[cite: 2, 3]
 
-> **Lưu ý cấu hình PHP trên XAMPP (Windows):**  
-> Mở file `xampp/php/php.ini` (hoặc `php --ini`), tìm và xóa dấu `;` ở đầu các dòng sau, sau đó lưu lại và restart Apache:
-> ```ini
-> extension=gd
-> extension=zip
-> extension=fileinfo
-> ```
+> **Lưu ý cấu hình PHP trên XAMPP (Windows):**
+> Mở file `xampp/php/php.ini`, tìm và xóa dấu chấm phẩy `;` ở đầu các dòng sau, sau đó lưu lại và restart Apache:
+> - `extension=gd`
+> - `extension=zip`
+> - `extension=fileinfo`
 
 ---
 
-## 2. CÂY CẤU TRÚC THƯ MỤC DỰ ÁN TỪ A -> Z
-
-Cấu trúc mã nguồn chi tiết phản ánh toàn bộ 22 tasks của hệ thống:
+## 2. CÂY CẤU TRÚC THƯ MỤC DỰ ÁN
 
 ```text
 attendance-system/
 ├── app/
 │   ├── Exports/
-│   │   └── AttendanceReportExport.php       # Xuất dữ liệu điểm danh ra file Excel (.xlsx)
+│   │   └── AttendanceReportExport.php       # Xuất dữ liệu điểm danh ra file Excel (.xlsx)[cite: 2, 3]
 │   ├── Http/
 │   │   ├── Controllers/
 │   │   │   ├── Admin/
-│   │   │   │   ├── ClassSectionController.php # Tạo lớp HP, tự sinh 15 buổi học & ghi danh
-│   │   │   │   ├── DashboardController.php    # Thống kê tổng quan & lọc sinh viên vắng > 20%
+│   │   │   │   ├── ClassSectionController.php # Tạo lớp HP, tự sinh 15 buổi học & ghi danh[cite: 2, 3]
+│   │   │   │   ├── DashboardController.php    # Thống kê tổng quan & lọc sinh viên vắng > 20%[cite: 2, 3]
 │   │   │   │   ├── RoomController.php         # Quản lý danh mục phòng học & IP Wifi[cite: 2, 3]
 │   │   │   │   ├── SubjectController.php      # Quản lý danh mục môn học[cite: 2, 3]
 │   │   │   │   └── UserController.php         # Quản lý tài khoản (CRUD) & Import Excel[cite: 2, 3]
@@ -97,7 +93,7 @@ attendance-system/
 │   └── index.php
 ├── resources/
 │   ├── css/
-│   │   └── app.css                            # Cấu hình import Tailwind CSS (@import "tailwindcss";)[cite: 2, 3]
+│   │   └── app.css                            # Cấu hình Tailwind CSS (@import "tailwindcss";)[cite: 2, 3]
 │   ├── js/
 │   │   ├── app.js
 │   │   ├── attendance_qr.js                   # Xử lý QR Code động qua JavaScript[cite: 2, 3]
@@ -138,23 +134,109 @@ attendance-system/
 ├── package-lock.json
 ├── README.md                                  # Hướng dẫn chi tiết dự án[cite: 2, 3]
 └── vite.config.js                             # Cấu hình plugin Tailwind CSS Vite[cite: 2, 3]
+```
 
-3. HƯỚNG DẪN CÀI ĐẶT DỰ ÁN TỪ ĐẦU (KHI FORK / CLONE)Sau khi fork hoặc clone repository về máy, mở Terminal/CMD tại thư mục dự án và thực hiện các bước sau:Bước 1: Cài đặt thư viện Backend (Khi không có mục vendor/)Bashcomposer install
-(Nếu gặp lỗi thiếu extension gd hoặc zip, kiểm tra lại Bước 1 để bật trong php.ini).Bước 2: Cài đặt thư viện Frontend (Khi không có hoặc đã xóa mục node_modules/)Thư mục node_modules/ không được đưa lên Git nhằm giảm dung lượng repository[cite: 2, 3]. Bạn không cần phải gõ lệnh cài đặt từng gói, chỉ cần chạy đúng 1 lệnh duy nhất:Bashnpm install
-(Hoặc viết tắt là npm i). NPM sẽ tự động đọc file package.json và tải lại toàn bộ: tailwindcss, @tailwindcss/vite, chart.js, qrcode.Bước 3: Thiết lập cấu hình môi trường .envNhân bản cấu hình từ file mẫu .env.example:Bash# Trên Windows (Command Prompt):
+---
+
+## 3. HƯỚNG DẪN CÀI ĐẶT DỰ ÁN TỪ ĐẦU (KHI FORK / CLONE)
+
+Sau khi fork hoặc clone repository về máy, mở Terminal/CMD tại thư mục dự án và thực hiện tuần tự:
+
+### Bước 3.1: Cài đặt thư viện Backend (Khi không có mục vendor/)
+```bash
+composer install
+```
+*(Nếu gặp lỗi thiếu extension gd hoặc zip, kiểm tra lại Bước 1 để bật trong php.ini)*.
+
+### Bước 3.2: Cài đặt thư viện Frontend (Khi không có hoặc đã xóa mục node_modules/)
+Thư mục `node_modules/` không được đưa lên Git nhằm giảm dung lượng repository[cite: 2, 3]. Bạn chỉ cần chạy đúng 1 lệnh duy nhất:
+```bash
+npm install
+```
+*(NPM sẽ tự động đọc file package.json và tải lại toàn bộ: tailwindcss, @tailwindcss/vite, chart.js, qrcode)*.
+
+### Bước 3.3: Thiết lập cấu hình môi trường .env
+Nhân bản cấu hình từ file mẫu `.env.example`:
+
+- Trên Windows (Command Prompt):
+```cmd
 copy .env.example .env
+```
 
-# Trên Git Bash / Linux / macOS:
+- Trên Git Bash / Linux / macOS:
+```bash
 cp .env.example .env
-Sinh mã khóa bảo mật Application Key mới cho ứng dụng:Bashphp artisan key:generate
-Bước 4: Tạo và kết nối Cơ sở dữ liệuMở phpMyAdmin (http://localhost/phpmyadmin), tạo một Database mới có tên: db_diem_danh (chọn bảng mã utf8mb4_unicode_ci).Mở file .env vừa tạo và chỉnh sửa thông số kết nối:Ini, TOMLDB_CONNECTION=mysql
+```
+
+Sau đó tạo Application Key mới:
+```bash
+php artisan key:generate
+```
+
+### Bước 3.4: Tạo và kết nối Cơ sở dữ liệu
+1. Mở phpMyAdmin (`http://localhost/phpmyadmin`), tạo một Database mới có tên: `db_diem_danh` (bảng mã `utf8mb4_unicode_ci`).
+2. Mở file `.env` vừa tạo và cập nhật lại thông số kết nối:
+```ini
+DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=db_diem_danh
 DB_USERNAME=root
 DB_PASSWORD=
-Bước 5: Chạy Migration và Nạp dữ liệu mẫu (Seeders)Khởi tạo toàn bộ bảng CSDL và nạp sẵn dữ liệu mẫu cho Admin, Giảng viên, Sinh viên, Môn học[cite: 2, 3]:Bashphp artisan migrate:fresh --seed
-Bước 6: Tạo liên kết Symbolic Link cho thư mục lưu trữ ảnhĐể hình ảnh minh chứng đơn xin nghỉ học hiển thị được trên trình duyệt[cite: 2, 3]:Bashphp artisan storage:link
-4. HƯỚNG DẪN KHỞI CHẠY DỰ ÁNĐể chạy và thao tác thử nghiệm trên Localhost, mở 2 cửa sổ Terminal song song:Terminal 1: Khởi chạy Vite (Biên dịch Tailwind CSS và JavaScript động)Bashnpm run dev
-(Nếu muốn build file tĩnh production mà không cần bật terminal dev, chạy: npm run build)[cite: 2, 3]Terminal 2: Khởi chạy máy chủ nội bộ LaravelBashphp artisan serve
-Mở trình duyệt truy cập: http://127.0.0.1:80005. TÀI KHOẢN MẪU ĐĂNG NHẬP THỬ NGHIỆMSau khi chạy seeder, hệ thống có sẵn các tài khoản sau[cite: 2, 3]:Phân quyềnEmail đăng nhậpMật khẩu mặc địnhChức năng chínhQuản trị viên (Admin)admin@caothang.edu.vn12345678Dashboard, Lọc cảnh báo vắng > 20%, CRUD User/Môn/Lớp, Import Excel[cite: 2, 3]Giảng viêngiangvien1@caothang.edu.vn12345678Điểm danh lớp, Sinh QR Code động, Duyệt đơn nghỉ, Xuất Excel/PDF[cite: 2, 3]Sinh viênsinhvien1@caothang.edu.vn12345678Xem thời khóa biểu, Báo cáo chuyên cần cá nhân, Nộp đơn xin nghỉ[cite: 2, 3]6. XỬ LÝ SỰ CỐ PHỔ BIẾN (TROUBLESHOOTING)Lỗi giao diện bị vỡ hạt / Không nhận style Tailwind:Chưa bật tiến trình Vite. Chạy lệnh npm run dev (hoặc npm run build)[cite: 2, 3].Lỗi không xem được ảnh minh chứng đơn nghỉ:Chạy lệnh php artisan storage:link để tạo shortcut tượng trưng liên kết thư mục storage sang public[cite: 2, 3].Lỗi cấu hình .env không nhận thay đổi:Xóa cache cấu hình bằng lệnh: php artisan optimize:clear.Lỗi xuất file PDF bị vỡ font tiếng Việt có dấu:Kiểm tra cấu hình isRemoteEnabled => true trong config/dompdf.php và nhúng phông DejaVu Sans vào template Blade[cite: 2, 3].
+```
+
+### Bước 3.5: Chạy Migration và Nạp dữ liệu mẫu (Seeders)
+Khởi tạo toàn bộ bảng CSDL và nạp sẵn dữ liệu mẫu cho Admin, Giảng viên, Sinh viên, Môn học[cite: 2, 3]:
+```bash
+php artisan migrate:fresh --seed
+```
+
+### Bước 3.6: Tạo liên kết Symbolic Link cho thư mục lưu trữ ảnh
+Để hình ảnh minh chứng đơn xin nghỉ học hiển thị được trên trình duyệt[cite: 2, 3]:
+```bash
+php artisan storage:link
+```
+
+---
+
+## 4. HƯỚNG DẪN KHỞI CHẠY DỰ ÁN
+
+Để chạy và thao tác thử nghiệm trên Localhost, mở 2 cửa sổ Terminal song song:
+
+- **Terminal 1: Khởi chạy Vite (Biên dịch Tailwind CSS và JavaScript động)**
+```bash
+npm run dev
+```
+*(Nếu muốn build file tĩnh production mà không cần bật terminal dev, chạy: `npm run build`)*[cite: 2, 3]
+
+- **Terminal 2: Khởi chạy máy chủ nội bộ Laravel**
+```bash
+php artisan serve
+```
+
+Mở trình duyệt truy cập: **`http://127.0.0.1:8000`**
+
+---
+
+## 5. TÀI KHOẢN MẪU ĐĂNG NHẬP THỬ NGHIỆM
+
+Sau khi chạy seeder, hệ thống có sẵn các tài khoản sau[cite: 2, 3]:
+
+| Phân quyền | Email đăng nhập | Mật khẩu mặc định | Chức năng chính |
+| :--- | :--- | :--- | :--- |
+| **Quản trị viên (Admin)** | admin@caothang.edu.vn | 12345678 | Dashboard, Lọc cảnh báo vắng > 20%, CRUD User/Môn/Lớp, Import Excel[cite: 2, 3] |
+| **Giảng viên** | giangvien1@caothang.edu.vn | 12345678 | Điểm danh lớp, Sinh QR Code động, Duyệt đơn nghỉ, Xuất Excel/PDF[cite: 2, 3] |
+| **Sinh viên** | sinhvien1@caothang.edu.vn | 12345678 | Xem thời khóa biểu, Báo cáo chuyên cần cá nhân, Nộp đơn xin nghỉ[cite: 2, 3] |
+
+---
+
+## 6. XỬ LÝ SỰ CỐ PHỔ BIẾN (TROUBLESHOOTING)
+
+- **Lỗi giao diện bị vỡ hạt / Không nhận style Tailwind:**  
+  Chưa bật tiến trình Vite. Hãy chạy lệnh `npm run dev` (hoặc `npm run build`)[cite: 2, 3].
+- **Lỗi không xem được ảnh minh chứng đơn nghỉ:**  
+  Chạy lệnh `php artisan storage:link` để tạo shortcut tượng trưng liên kết thư mục `storage` sang `public`[cite: 2, 3].
+- **Lỗi cấu hình .env không nhận thay đổi:**  
+  Xóa cache cấu hình bằng lệnh: `php artisan optimize:clear`.
+- **Lỗi xuất file PDF bị vỡ font tiếng Việt có dấu:**  
+  Kiểm tra cấu hình `isRemoteEnabled => true` trong `config/dompdf.php` và nhúng phông `DejaVu Sans` vào template Blade[cite: 2, 3].
