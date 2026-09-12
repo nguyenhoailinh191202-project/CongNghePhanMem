@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\AttendanceController as AdminAttendanceController;
 use App\Http\Controllers\Student\LeaveRequestController;
 use App\Http\Controllers\Student\ScheduleController;
 use App\Http\Controllers\Teacher\AttendanceController;
@@ -30,9 +33,26 @@ Route::middleware('auth')->group(function () {
     Route::get('/doi-mat-khau', [AuthController::class, 'showChangePasswordForm'])->name('password.change');
     Route::put('/doi-mat-khau', [AuthController::class, 'changePassword'])->name('password.update');
 
-    // --- QUẢN TRỊ VIÊN ---
+    // --- QUẢN TRỊ VIÊN (ADMIN) ---
     Route::middleware('role:admin')->prefix('admin')->name('admin.')->group(function () {
-        Route::view('/dashboard', 'admin.dashboard')->name('dashboard');
+        // Dashboard & Cảnh báo vắng
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/warnings', [DashboardController::class, 'warnings'])->name('warnings.index');
+
+        // Xem chi tiết điểm danh Lớp HP dành cho Admin
+        Route::get('/attendance/class/{lopHocPhan}', [AdminAttendanceController::class, 'show'])->name('attendance.show');
+
+        // Import Excel danh sách người dùng (Đặt trước Route::resource để không bị trùng URL)
+        Route::get('/users/import', [UserController::class, 'showImportForm'])->name('users.import');
+        Route::post('/users/import', [UserController::class, 'import'])->name('users.import.store');
+        Route::get('/users/download-sample', [UserController::class, 'downloadSample'])->name('users.download-sample');
+
+        // Thao tác Tài khoản nâng cao (Reset mật khẩu, Khóa/Mở khóa)
+        Route::post('/users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.reset-password');
+        Route::post('/users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggle-status');
+
+        // Quản lý CRUD Tài khoản (Index, Create, Store, Edit, Update, Destroy)
+        Route::resource('users', UserController::class);
     });
 
     // --- SINH VIÊN ---
