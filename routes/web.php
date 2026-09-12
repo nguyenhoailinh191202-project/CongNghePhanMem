@@ -3,6 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\SubjectController;
+use App\Http\Controllers\Admin\ClassSectionController;
 use App\Http\Controllers\Admin\AttendanceController as AdminAttendanceController;
 use App\Http\Controllers\Student\LeaveRequestController;
 use App\Http\Controllers\Student\ScheduleController;
@@ -53,6 +55,15 @@ Route::middleware('auth')->group(function () {
 
         // Quản lý CRUD Tài khoản (Index, Create, Store, Edit, Update, Destroy)
         Route::resource('users', UserController::class);
+
+        // Quản lý danh mục dùng chung cho phân công giảng dạy
+        Route::resource('subjects', SubjectController::class)->only(['index', 'store', 'update', 'destroy']);
+
+        Route::get('/class-sections/{classSection}/enroll', [ClassSectionController::class, 'enroll'])->name('class-sections.enroll');
+        Route::put('/class-sections/{classSection}/enroll', [ClassSectionController::class, 'saveEnrollment'])->name('class-sections.enroll.save');
+        Route::resource('class-sections', ClassSectionController::class)
+            ->only(['index', 'create', 'store', 'destroy'])
+            ->parameters(['class-sections' => 'classSection']);
     });
 
     // --- SINH VIÊN ---

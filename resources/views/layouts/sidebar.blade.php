@@ -4,8 +4,7 @@
             ['route' => 'admin.dashboard',        'label' => 'Tổng quan',        'icon' => 'M3 13.5h6v7.5H3zM15 3h6v18h-6zM9 8.25h6V21H9z'],
             ['route' => 'admin.users.index',      'label' => 'Tài khoản',        'icon' => 'M15 19.1v-.9a6 6 0 00-12 0v.9M9 10.5a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5zm12 8.6v-.9a6 6 0 00-4.5-5.8'],
             ['route' => 'admin.subjects.index',   'label' => 'Môn học',          'icon' => 'M12 6.04A7.5 7.5 0 003 5.25v12a7.5 7.5 0 019 .79 7.5 7.5 0 019-.79v-12a7.5 7.5 0 00-9 .79zm0 0V21'],
-            ['route' => 'admin.sections.index',   'label' => 'Lớp học phần',     'icon' => 'M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5'],
-            ['route' => 'admin.rooms.index',      'label' => 'Phòng học & Wifi', 'icon' => 'M2.25 21h19.5M4.5 3v18m15-18v18M9 6.75h1.5M9 12h1.5m3-5.25H15m-1.5 5.25H15'],
+            ['route' => 'admin.class-sections.index', 'label' => 'Lớp học phần', 'icon' => 'M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5'],
         ],
         'giang_vien' => [
             ['route' => 'teacher.attendance.index', 'label' => 'Điểm danh',      'icon' => 'M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z'],
