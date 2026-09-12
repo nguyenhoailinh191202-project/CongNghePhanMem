@@ -62,7 +62,5 @@ return new class extends Migration
     {
         Schema::dropIfExists('lop_hoc_phan');
         Schema::dropIfExists('mon_hoc');
-        // Chỉ drop users nếu bạn tạo mới hoàn toàn
-        // Schema::dropIfExists('users');
     }
 };

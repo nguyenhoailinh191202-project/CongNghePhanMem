@@ -19,6 +19,10 @@ class BuoiHoc extends Model
         'trang_thai',
     ];
 
+    protected $casts = [
+        'ngay_hoc' => 'datetime',
+    ];
+
     public function lopHocPhan(): BelongsTo
     {
         return $this->belongsTo(LopHocPhan::class, 'lop_hoc_phan_id');

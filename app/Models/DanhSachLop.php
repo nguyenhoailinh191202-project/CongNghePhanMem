@@ -10,7 +10,7 @@ class DanhSachLop extends Model
 {
     use HasFactory;
 
-    protected $table = 'danh_sach_lop';
+    protected $table = 'lop_hoc_phan_sinh_vien';
 
     protected $fillable = [
         'sinh_vien_id',

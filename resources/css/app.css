@@ -1,1 +1,56 @@
 @import "tailwindcss";
+
+/* Tailwind v4 quét class trong Blade, không cần tailwind.config.js */
+@source "../views";
+@source "../../app/Http/Controllers";
+
+@theme {
+    --font-sans: "Be Vietnam Pro", ui-sans-serif, system-ui, sans-serif;
+
+    --color-brand-50: #eef4ff;
+    --color-brand-100: #d9e5ff;
+    --color-brand-500: #3b6fe0;
+    --color-brand-600: #2f59bd;
+    --color-brand-700: #254799;
+    --color-brand-900: #16295c;
+}
+
+/* Alpine: ẩn phần tử cho tới khi Alpine khởi tạo xong */
+[x-cloak] {
+    display: none !important;
+}
+
+@layer components {
+    .form-input {
+        @apply w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900
+               shadow-sm transition outline-none
+               focus:border-brand-500 focus:ring-2 focus:ring-brand-100;
+    }
+
+    .form-input-error {
+        @apply border-red-400 focus:border-red-500 focus:ring-red-100;
+    }
+
+    .form-label {
+        @apply mb-1.5 block text-sm font-medium text-slate-700;
+    }
+
+    .form-error {
+        @apply mt-1.5 flex items-center gap-1 text-xs font-medium text-red-600;
+    }
+
+    .btn-primary {
+        @apply inline-flex items-center justify-center gap-2 rounded-lg bg-brand-600 px-4 py-2
+               text-sm font-semibold text-white shadow-sm transition
+               hover:bg-brand-700 focus:ring-2 focus:ring-brand-100 disabled:opacity-60;
+    }
+
+    .btn-ghost {
+        @apply inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300
+               bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50;
+    }
+
+    .card {
+        @apply rounded-xl border border-slate-200 bg-white p-6 shadow-sm;
+    }
+}
