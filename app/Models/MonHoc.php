@@ -16,6 +16,8 @@ class MonHoc extends Model
         'ma_mon',
         'ten_mon',
         'so_tin_chi',
+        'so_tiet_ly_thuyet',
+        'so_tiet_thuc_hanh',
     ];
 
     public function lopHocPhans(): HasMany

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class LopHocPhan extends Model
 {
@@ -43,5 +44,10 @@ class LopHocPhan extends Model
             'lop_hoc_phan_id',        // Khóa ngoại của lớp học phần trong bảng trung gian
             'sinh_vien_id'            // Khóa ngoại của sinh viên trong bảng trung gian
         );
+    }
+
+    public function buoiHocs(): HasMany
+    {
+        return $this->hasMany(BuoiHoc::class, 'lop_hoc_phan_id');
     }
 }
