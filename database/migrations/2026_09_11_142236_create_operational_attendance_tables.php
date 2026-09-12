@@ -11,18 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // 1. Bảng Ghi danh sinh viên vào lớp học phần (danh_sach_lop)
-        Schema::create('danh_sach_lop', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('sinh_vien_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('lop_hoc_phan_id')->constrained('lop_hoc_phan')->onDelete('cascade');
-            $table->timestamps();
-
-            // Ràng buộc UNIQUE để một sinh viên không bị ghi danh 2 lần vào 1 lớp HP
-            $table->unique(['sinh_vien_id', 'lop_hoc_phan_id']);
-        });
-
-        // 2. Bảng Quản lý lịch trình từng buổi học (buoi_hoc)
+        // Bảng Quản lý lịch trình từng buổi học (buoi_hoc)
         Schema::create('buoi_hoc', function (Blueprint $table) {
             $table->id();
             $table->foreignId('lop_hoc_phan_id')->constrained('lop_hoc_phan')->onDelete('cascade');
@@ -31,7 +20,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        // 3. Bảng Nhật ký điểm danh từng sinh viên (chi_tiet_diem_danh)
+        // Bảng Nhật ký điểm danh từng sinh viên (chi_tiet_diem_danh)
         Schema::create('chi_tiet_diem_danh', function (Blueprint $table) {
             $table->id();
             $table->foreignId('buoi_hoc_id')->constrained('buoi_hoc')->onDelete('cascade');
@@ -43,7 +32,7 @@ return new class extends Migration
             $table->unique(['buoi_hoc_id', 'sinh_vien_id']);
         });
 
-        // 4. Bảng Đơn xin nghỉ phép trực tuyến (don_xin_phep)
+        // Bảng Đơn xin nghỉ phép trực tuyến (don_xin_phep)
         Schema::create('don_xin_phep', function (Blueprint $table) {
             $table->id();
             $table->foreignId('sinh_vien_id')->constrained('users')->onDelete('cascade');
@@ -63,6 +52,5 @@ return new class extends Migration
         Schema::dropIfExists('don_xin_phep');
         Schema::dropIfExists('chi_tiet_diem_danh');
         Schema::dropIfExists('buoi_hoc');
-        Schema::dropIfExists('danh_sach_lop');
     }
 };

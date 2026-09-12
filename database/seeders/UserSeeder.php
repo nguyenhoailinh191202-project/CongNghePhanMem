@@ -12,7 +12,7 @@ class UserSeeder extends Seeder
     {
         // 1. Tạo 1 Tài khoản Admin
         User::create([
-            'name'     => 'Quản Trị Viên Khoa',
+            'ma_so'    => 'ADMIN001',
             'ho_ten'   => 'Quản Trị Viên Khoa',
             'email'    => 'admin@caothang.edu.vn',
             'password' => Hash::make('12345678'),
@@ -21,8 +21,9 @@ class UserSeeder extends Seeder
 
         // 2. Tạo 5 Giảng viên mẫu
         for ($i = 1; $i <= 5; $i++) {
+            $msgv = 'GV' . str_pad($i, 3, '0', STR_PAD_LEFT);
             User::create([
-                'name'     => "Giảng Viên $i",
+                'ma_so'    => $msgv,
                 'ho_ten'   => "Giảng Viên $i",
                 'email'    => "giangvien{$i}@caothang.edu.vn",
                 'password' => Hash::make('12345678'),
@@ -34,9 +35,9 @@ class UserSeeder extends Seeder
         for ($i = 1; $i <= 50; $i++) {
             $mssv = '0306' . str_pad($i, 4, '0', STR_PAD_LEFT);
             User::create([
-                'name'     => "Sinh Viên $i",
+                'ma_so'    => $mssv,
                 'ho_ten'   => "Sinh Viên $i",
-                'email'    => "sv_{$mssv}@caothang.edu.vn",
+                'email'    => "{$mssv}@caothang.edu.vn",
                 'password' => Hash::make('12345678'),
                 'vai_tro'  => 'sinh_vien',
             ]);

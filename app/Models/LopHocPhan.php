@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class LopHocPhan extends Model
 {
@@ -31,5 +32,16 @@ class LopHocPhan extends Model
     public function giangVien(): BelongsTo
     {
         return $this->belongsTo(User::class, 'giang_vien_id');
+    }
+
+    // Danh sách sinh viên thuộc lớp học phần
+    public function sinhViens(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            User::class,
+            'lop_hoc_phan_sinh_vien', // Tên bảng trung gian (pivot table) trong CSDL
+            'lop_hoc_phan_id',        // Khóa ngoại của lớp học phần trong bảng trung gian
+            'sinh_vien_id'            // Khóa ngoại của sinh viên trong bảng trung gian
+        );
     }
 }
